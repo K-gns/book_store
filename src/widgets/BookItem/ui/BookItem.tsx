@@ -26,9 +26,9 @@ export const BookItem = ({className, ...book}: BookItemProps) => {
                 </div>
 
                 <div className={cls.BookTags}>
-                    {book.tags.map((item) => {
-                       return <div className={cls.Tag}>{item}</div>
-                    })}
+                    {book.tags.map((item, index) =>
+                       <div key={index} className={cls.Tag}>{item}</div>
+                    )}
                 </div>
             </div>
         </div>

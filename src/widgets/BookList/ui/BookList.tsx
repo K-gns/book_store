@@ -2,7 +2,7 @@ import {classNames} from "shared/lib/classNames/classNames";
 import cls from './BookList.module.scss'
 import {BookItem} from "widgets/BookItem";
 import {FiltersBar} from "widgets/FiltersBar";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 
 interface BookListProps {
     className?: string;
@@ -50,6 +50,7 @@ const bookMockData = [
 export const BookList = ({className}: BookListProps) => {
     const [bookData, setBookData] = useState(bookMockData)
     const [tagsList, setTagsList] = useState([])
+    const [activeTagsList, setActiveTagsList] = useState([])
 
     useEffect(() => {
         let tagsSet = new Set()
@@ -62,13 +63,34 @@ export const BookList = ({className}: BookListProps) => {
         setTagsList(Array.from(tagsSet))
     }, [])
 
+    const filteredBooks = useMemo( () => {
+        return bookMockData.filter((item) => {
+            if (activeTagsList.length > 0) {
+                return activeTagsList.every((tag) => item.tags.includes(tag))
+            } else {
+                return true
+            }
+        });
+    }, [activeTagsList]);
+
+    const onTagChangeHandler = (tagName: string, isAdding: boolean) => {
+        if (isAdding) {
+            setActiveTagsList([...activeTagsList, tagName])
+        } else {
+            setActiveTagsList(activeTagsList.filter((item) =>
+                item !== tagName
+            ))
+        }
+    }
+
+
 
     return (
         <div className={classNames(cls.BookList, {}, [className])}>
-            <FiltersBar tagsList={tagsList}/>
+            <FiltersBar tagsList={tagsList} onTagChange={onTagChangeHandler}/>
             <div className={cls.BookItems}>
                 {
-                    bookData.map((item, index) =>
+                    filteredBooks.map((item, index) =>
                             <BookItem key={index} index={index + 1}
                                 title={item.title}
                                 author={item.author}

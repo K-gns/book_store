@@ -1,0 +1,36 @@
+.TagsPopup {
+  width: 300px;
+  height: auto;
+  border-radius: 20px;
+  background-color: #405D72;
+  border: 2px solid #FFF8F3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 20px;
+}
+
+.popupContent {
+  color: var(--primary-color)
+}
+
+.popupTag {
+  width: auto;
+  box-sizing: border-box;
+  text-align: center;
+  padding: 10px;
+  border-radius: 50px;
+  border: 3px solid #FFF8F3;
+  background-color: #405D72;
+  color: #FFF8F3;
+}
+
+.active {
+  background-color: #FFF8F3;
+  color: #000;
+  border: none;
+}
+
+.unActive {
+
+}
