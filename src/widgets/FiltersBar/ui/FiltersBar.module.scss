@@ -1,7 +1,7 @@
 .FiltersBar {
   width: 50%;
   padding: 30px 104px;
-  background-color: #758694;
+  background-color: var(--inverted-bg-color);
   border-radius: 32px;
   display: flex;
   justify-content: space-between;
@@ -23,12 +23,11 @@
   height: auto;
   padding: 16px 12px;
   border-radius: 20px;
-  background-color: #405D72;
+  background-color: var(--secondary-color);
   border: 2px solid #FFF8F3;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
-  padding: 20px;
 }
 
 .popupContent {
@@ -37,7 +36,7 @@
 
 .popupTag {
   width: auto;
-  background-color: #FFF8F3;
+  background-color: var(--inverted-bg-color);
   color: #000;
   padding: 10px;
   border-radius: 50px;
@@ -51,5 +50,14 @@
   transition: transform 0.3s ease;
   &.descending {
     transform: rotate(180deg);
+  }
+}
+
+@media screen and (orientation: portrait) and (max-width: 1000px) {
+  .FiltersBar {
+    width: 100%;
+    padding: 10px 30px;
+    flex-shrink: 0;
+    flex-grow: 1;
   }
 }

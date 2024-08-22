@@ -10,19 +10,14 @@ import {BookList} from "widgets/BookList";
 
 
 const App = () => {
-    const [sidebarToggle, setSidebarToggle] = useState(true)
-
     const {theme} = useTheme();
-    const toggleSidebar = () => {
-        setSidebarToggle((state) => !state)
-    }
 
     return (
             <div className={classNames('app', {}, [theme])}>
                 <Navbar/>
                 <div className="content-page">
                     <div className="content">
-                        <BookList></BookList>
+                        <BookList />
                     </div>
                 </div>
             </div>

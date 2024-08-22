@@ -1,14 +1,14 @@
 .BookItem {
   width: 100%;
   border-radius: 20px;
-  background-color: rgba(64, 93, 114, 0.5);
+  background-color: var(--item-color);
   flex-direction: column;
   font-family: Inter, serif;
   transition: 0.3s ease;
 }
 
 .BookItem:hover {
-  background-color: rgba(64, 93, 114, 1);
+  background-color: var(--item-color-hover);
 }
 
 .BookItemContent {
@@ -62,9 +62,20 @@
 
 .Tag {
   width: auto;
+  font-size: 12px;
   background-color: var(--primary-color);
-  color: #000;
+  color: var(--secondary-color);
   padding: 10px;
   border-radius: 50px;
 }
 
+
+@media screen and (orientation: portrait) and (max-width: 1000px) {
+  .BookItems {
+    width: 100%;
+  }
+
+  .Tag {
+    padding: 5px;
+  }
+}

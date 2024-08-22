@@ -11,9 +11,15 @@
   width: 50%;
   padding: 32px;
   border-radius: 32px;
-  background-color: #758694;
+  background-color: var(--inverted-bg-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+}
+
+@media screen and (orientation: portrait) and (max-width: 1000px) {
+  .BookItems {
+    width: 100%;
+  }
 }
