@@ -50,7 +50,7 @@ const bookMockData : Book[] = [
         author: "Tagster E. Tag",
         date: "August 2024",
         price: 521,
-        tags: ["Health", "Biochemistry", "ClimateChange", "Technology", "Sci-Fi", "History", "TestTag1", "TestTag2", "TestTag3" ]
+        tags: ["Health", "Biochemistry", "ClimateChange", "Technology", "Sci-Fi", "History"]
     },
 ]
 
