@@ -1,0 +1,18 @@
+.navbar {
+    height: var(--navbar-height);
+    background: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.20), 0 0 8px 0 rgba(0, 0, 0, 0.10);
+}
+
+.headerContainer {
+    width: 100%;
+    padding-top: 28px !important;
+    padding-bottom: 28px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
