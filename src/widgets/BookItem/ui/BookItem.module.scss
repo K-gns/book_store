@@ -1,9 +1,14 @@
 .BookItem {
   width: 100%;
   border-radius: 20px;
-  background-color: var(--secondary-color);
+  background-color: rgba(64, 93, 114, 0.5);
   flex-direction: column;
   font-family: Inter, serif;
+  transition: 0.3s ease;
+}
+
+.BookItem:hover {
+  background-color: rgba(64, 93, 114, 1);
 }
 
 .BookItemContent {

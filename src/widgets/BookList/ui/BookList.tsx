@@ -8,7 +8,15 @@ interface BookListProps {
     className?: string;
 }
 
-const bookMockData = [
+type Book = {
+    title: string;
+    author?: string;
+    date?: string;
+    price?: number;
+    tags?: string[]
+}
+
+const bookMockData : Book[] = [
     {
         title: "Plastic: A Novel",
         author: "Scott Guild",
@@ -26,7 +34,6 @@ const bookMockData = [
     {
         title: "H is for Hope: Climate Change from A to Z",
         author: "Elizabeth Kolbert",
-        illustrator: "Wesley Allsbrook",
         date: "March 2024",
         price: 674,
         tags: ["ClimateChange", "Technology"]
@@ -51,6 +58,8 @@ export const BookList = ({className}: BookListProps) => {
     const [bookData, setBookData] = useState(bookMockData)
     const [tagsList, setTagsList] = useState([])
     const [activeTagsList, setActiveTagsList] = useState([])
+    const [sortType, setSortType] = useState<string | null>(null)
+    const [isSortDescending, setIsSortDescending] = useState(false)
 
     useEffect(() => {
         let tagsSet = new Set()
@@ -63,15 +72,32 @@ export const BookList = ({className}: BookListProps) => {
         setTagsList(Array.from(tagsSet))
     }, [])
 
-    const filteredBooks = useMemo( () => {
-        return bookMockData.filter((item) => {
+
+    const sortBooks = (books: Book[], sortType: string, isDescending: boolean) => {
+        switch(sortType) {
+            case 'price':
+                return books.sort((a, b) => isDescending ? a.price - b.price : b.price - a.price)
+            case 'author':
+                return books.sort((a, b) => isDescending ? a.author.localeCompare(b.author): b.author.localeCompare(a.author))
+            case 'date':
+                // @ts-ignore
+                return books.sort((a, b) => isDescending ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date))
+            default:
+                return books.sort((a, b) => a.title.localeCompare(b.title))
+        }
+    }
+
+    const filteredAndSortedBooks = useMemo( () => {
+        const filtered = bookMockData.filter((item) => {
             if (activeTagsList.length > 0) {
                 return activeTagsList.every((tag) => item.tags.includes(tag))
             } else {
                 return true
             }
         });
-    }, [activeTagsList]);
+
+        return sortBooks(filtered, sortType, isSortDescending)
+    }, [activeTagsList, sortType, isSortDescending]);
 
     const onTagChangeHandler = (tagName: string, isAdding: boolean) => {
         if (isAdding) {
@@ -83,14 +109,29 @@ export const BookList = ({className}: BookListProps) => {
         }
     }
 
+    const onSortChangeHandler = (sortName: string, isDescending: boolean) => {
+        setSortType(sortName)
+        setIsSortDescending(isDescending)
+        console.log(sortName, isDescending)
+    }
+
+    const onReset = () => {
+        setActiveTagsList([])
+        setSortType(null)
+    }
+
 
 
     return (
         <div className={classNames(cls.BookList, {}, [className])}>
-            <FiltersBar tagsList={tagsList} onTagChange={onTagChangeHandler}/>
+            <FiltersBar tagsList={tagsList}
+                        onTagChange={onTagChangeHandler}
+                        onSortChange={onSortChangeHandler}
+                        onReset={onReset}
+            />
             <div className={cls.BookItems}>
                 {
-                    filteredBooks.map((item, index) =>
+                    filteredAndSortedBooks.map((item, index) =>
                             <BookItem key={index} index={index + 1}
                                 title={item.title}
                                 author={item.author}
